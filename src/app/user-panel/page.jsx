@@ -2,32 +2,32 @@
 
 import React, { useState } from "react";
 
-const User = (props) => {
+const styleInput = {
+    border:"1px solid #CECECE",
+    borderRadius:"5px",
+    padding:"3px",
+}
+const styleButtonSubmit = {
+    border:"1px solid #CECECE",
+    borderRadius:"5px",
+    padding:"3px",
+}
+const styleDiv = {
+    width:"100%",
+    display:"flex",
+    gap:"1rem",
+    alignItems:"start",
+    justifyContent:"center",
+    flexDirection:"column"
+}
 
-    const styleInput = {
-        border:"1px solid #CECECE",
-        borderRadius:"5px",
-        padding:"3px",
-    }
-    const styleButtonSubmit = {
-        border:"1px solid #CECECE",
-        borderRadius:"5px",
-        padding:"3px",
-    }
-    const styleDiv = {
-        width:"100%",
-        display:"flex",
-        gap:"1rem",
-        alignItems:"start",
-        justifyContent:"center",
-        flexDirection:"column"
-    }
+const User = (props) => {
 
     const [ userId, setUserId ] = useState(1)
     const [ dadosUser, setDadosUser ] = useState({})
 
     const obterDados = async function() {
-        const request = await fetch(`http://localhost:3000/api/users/${userId}`)
+        const request = await fetch(`http://localhost:3000/api/users/${userId}`, {next: { revalidate: 60}})
         const data = await request.json()
         setDadosUser(data)
     }
